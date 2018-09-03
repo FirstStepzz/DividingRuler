@@ -2,6 +2,7 @@
 # DividingRuler
 自定义滑动刻度尺，滑动标尺，实现简单，所有参数可完全自定义
 
+帮到的话，别忘了给个✨星星啊，兄弟们～
 
 ![image](https://upload-images.jianshu.io/upload_images/2572565-3f1f118418af1de0.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/261/format/webp)
 
@@ -42,6 +43,5 @@
 
 其他可见简书：https://www.jianshu.com/p/2523c4f22ce8
 
-帮到的话，别忘了给个星星，兄弟们
 
 
