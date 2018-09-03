@@ -39,4 +39,9 @@
     [rulerView updateRuler];
     [self.view addSubview:rulerView];
 }
+
 其他可见简书：https://www.jianshu.com/p/2523c4f22ce8
+
+帮到的话，别忘了明星啊，兄弟们
+
+
