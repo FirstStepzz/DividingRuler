@@ -29,7 +29,9 @@
     
     // 变速区域
     LZDividingRulerView * rulerView = [[LZDividingRulerView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 51)];
+    //是否自定义刻度
     rulerView.isCustomScalesValue = YES;
+    //刻度文案每 5 个刻度格 显示一个文案
     rulerView.scalesCountBetweenScaleText = 5;
     rulerView.customScalesCount = 30;
     rulerView.defaultScale = 15;
@@ -51,23 +53,30 @@
 
 -(void)setupTwoRuler{
     
-    
     // 变速区域
     LZDividingRulerView * rulerView = [[LZDividingRulerView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 51)];
+    //使用刻度尺常规模式
     rulerView.isCustomScalesValue = NO;
+    //不显示刻度尺上的文案
     rulerView.isShowScaleText = NO;
+    //显示刻度尺中当前值文案
     rulerView.isShowCurrentValue = YES;
+    //最大值
     rulerView.maxValue = 1000000;
+    //最小值
     rulerView.minValue = 100;
+    //单元值
     rulerView.unitValue = 100;
+    //默认值
     rulerView.defaultValue = 10100;
+    //两个刻度文案之间的刻度格数
     rulerView.scalesCountBetweenScaleText = 5;
-    rulerView.customScalesCount = 30;
-    rulerView.defaultScale = 15;
     
+    //结束滚动
     [rulerView setDividingRulerDidEndScrollingBlock:^NSString *(CGFloat value) {
         return [NSString stringWithFormat:@"%.f",value];
     }];
+    //滚动中
     [rulerView setDividingRulerDidScrollBlock:^NSString *(CGFloat value,CGPoint rulerContentOffset) {
         return [NSString stringWithFormat:@"%.f",value];
     }];

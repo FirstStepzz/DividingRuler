@@ -212,21 +212,25 @@
     [self.currentValueLabel setTextColor:self.isScrollEnable?[UIColor whiteColor]:[UIColor colorWithHexString:@"#FFFFFF" alpha:0.4]];
     [self.collectionView reloadData];
     
+    //此处是因为，设置contentOffset的是double类型，设置完后必然会走scrollDidScroll，然后又要走其中根据偏移量来计算index的方法。但是读取scrollView的contentOffset居然不保留小数位或者只保留一位小数位，精度大变，导致数据误差极大。故在此调用原偏移量进行重置。
     if (self.isCustomScalesValue) {
-        //此处是因为，设置contentOffset的是double类型，设置完后必然会走scrollDidScroll，然后又要走其中根据偏移量来计算index的方法。但是读取scrollView的contentOffset居然不保留小数位或者只保留一位小数位，精度大变，导致数据误差极大。故在此调用原偏移量进行重置。
         if (self.dividingRulerCustomScaleDidScrollBlock) {
             self.dividingRulerCustomScaleDidScrollBlock(self.defaultScale);
         }
         if (self.dividingRulerCustomScaleDidEndScrollingBlock) {
             self.dividingRulerCustomScaleDidEndScrollingBlock(self.defaultScale);
         }
+    }else{
+        if (self.dividingRulerDidScrollBlock) {
+            self.currentValueLabel.text = self.dividingRulerDidScrollBlock(self.defaultValue,CGPointMake(defaultOffset, 0));
+        }
+        if (self.dividingRulerDidEndScrollingBlock) {
+            self.currentValueLabel.text = self.dividingRulerDidEndScrollingBlock(self.defaultValue);
+        }
     }
 }
 
 -(void)layoutSubviews{
-    
-    //collectionView位置
-    [self.collectionView setFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     
     //中间标View位置
     CGFloat bottomOffset = (self.largeLineHeight - self.indicatorHeight)/2+5;
@@ -417,6 +421,8 @@
         [self addSubview:_collectionView];
         [_collectionView setBackgroundColor:[UIColor blackColor]];
         [_collectionView registerClass:[LZDividingRulerCell class] forCellWithReuseIdentifier:@"LZDividingRulerCell"];
+        //collectionView位置
+        [_collectionView setFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
     }
     return _collectionView;
 }
